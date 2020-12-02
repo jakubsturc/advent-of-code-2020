@@ -7,7 +7,6 @@ namespace JakubSturc.AdventOfCode2020
 {
     public static class Input
     {
-        public static int[] ReadDay1Part1() 
-            => File.ReadAllLines(@".\Input\d1p1.txt").Select(int.Parse).ToArray();
+        public static IEnumerable<string> Read(int day, int part = 1) => File.ReadAllLines($".\\Input\\d{day}p{part}.txt");
     }
 }

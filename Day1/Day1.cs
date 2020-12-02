@@ -1,17 +1,21 @@
-﻿namespace JakubSturc.AdventOfCode2020.Day1
+﻿using System.Linq;
+
+namespace JakubSturc.AdventOfCode2020.Day1
 {
     public static class Day1
     {
+        public static int[] ReadInput() => Input.Read(day: 1).Select(int.Parse).ToArray();
+
         public static int Part1()
         {
-            var input = Input.ReadDay1Part1();
+            var input = ReadInput();
             (_, var a, var b) = Part1(input);
             return a * b;
         }
 
         public static int Part2()
         {
-            var input = Input.ReadDay1Part1();
+            var input = ReadInput();
             (_, var a, var b, var c) = Part2(input);
             return a * b * c;
         }
