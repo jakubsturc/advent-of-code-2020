@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text.RegularExpressions;
 using Xunit;
 
@@ -6,18 +7,27 @@ namespace JakubSturc.AdventOfCode2020
 {
     public static class Day2
     {
-        public static int Part1() => Input.Read(day: 2, part: 1).Where(IsValid).Count();
+        public static int Part1() => Input.Read(day: 2).Where(IsValid1).Count();
+        
+        public static int Part2() => Input.Read(day: 2).Where(IsValid2).Count();
 
-        public static bool IsValid(string line)
+        public static bool IsValid1(string line)
         {
             var r = InputParser.Parse(line);
             var p = new Policy(r.C, r.Min, r.Max);
-            return p.Validate(r.Psw);
+            return p.Validate1(r.Psw);
+        }
+
+        public static bool IsValid2(string line)
+        {
+            var r = InputParser.Parse(line);
+            var p = new Policy(r.C, r.Min, r.Max);
+            return p.Validate2(r.Psw);
         }
 
         public record Policy(char C, int Min, int Max)
         {
-            public bool Validate(string s)
+            public bool Validate1(string s)
             {
                 var cnt = 0;
                 foreach (char c in s)
@@ -26,7 +36,15 @@ namespace JakubSturc.AdventOfCode2020
                 }
 
                 return Min <= cnt && cnt <= Max;
-            }            
+            }
+
+            public bool Validate2(string s)
+            {
+                var len = s.Length;
+                var b1 = Min <= len && s[Min - 1] == C;
+                var b2 = Max <= len && s[Max - 1] == C;
+                return b1 ^ b2;
+            }
         }
 
         public static class InputParser
@@ -54,9 +72,21 @@ namespace JakubSturc.AdventOfCode2020
                 var p2 = new Policy('b', 1, 3);
                 var p3 = new Policy('c', 2, 9);
 
-                Assert.True(p1.Validate("abcde"));
-                Assert.False(p2.Validate("cdefg"));
-                Assert.True(p3.Validate("ccccccccc"));
+                Assert.True(p1.Validate1("abcde"));
+                Assert.False(p2.Validate1("cdefg"));
+                Assert.True(p3.Validate1("ccccccccc"));
+            }
+
+            [Fact]
+            public void Part2_Sample()
+            {
+                var p1 = new Policy('a', 1, 3);
+                var p2 = new Policy('b', 1, 3);
+                var p3 = new Policy('c', 2, 9);
+
+                Assert.True(p1.Validate2("abcde"));
+                Assert.False(p2.Validate2("cdefg"));
+                Assert.False(p3.Validate2("ccccccccc"));
             }
 
             [Fact]
