@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace JakubSturc.AdventOfCode2020
 {
     public static class Input
     {
-        public static string[] Read(int day, int part = 1) => File.ReadAllLines($".\\Input\\d{day}p{part}.txt");
+        private static string GetPath(int day, int part) => $".\\Input\\d{day}p{part}.txt";
+
+        public static string[] Read(int day, int part = 1) => File.ReadAllLines(GetPath(day, part));
+        
+        public static StreamReader Open(int day, int part = 1) => File.OpenText(GetPath(day, part));
     }
 }
