@@ -5,7 +5,7 @@ namespace JakubSturc.AdventOfCode2020
 {
     public static class Day1
     {
-        public static int[] ReadInput() => Input.Read(day: 1).Select(int.Parse).ToArray();
+        public static int[] ReadInput() => Input.ReadLines(day: 1).Select(int.Parse).ToArray();
 
         public static int Part1()
         {

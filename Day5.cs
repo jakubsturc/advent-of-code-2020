@@ -8,12 +8,12 @@ namespace JakubSturc.AdventOfCode2020
     {
         public static uint Part1()
         {
-            return Input.Read(day: 5).Select(Decode).Max();
+            return Input.ReadLines(day: 5).Select(Decode).Max();
         }
 
         public static uint Part2()
         {
-            var seats = Input.Read(day: 5).Select(Decode).OrderBy(_=>_);
+            var seats = Input.ReadLines(day: 5).Select(Decode).OrderBy(_=>_);
             uint last = 0;
             foreach (var seatId in seats)
             {

@@ -10,14 +10,14 @@ namespace JakubSturc.AdventOfCode2020
     {
         public static int Part1()
         {
-            var input = Input.Read(day: 3);
+            var input = Input.ReadLines(day: 3);
             var map = new Map(input);
             return Sloop(map, Δ: (row: 1, col: 3));
         }
 
         public static long Part2()
         {
-            var input = Input.Read(day: 3);
+            var input = Input.ReadLines(day: 3);
             var map = new Map(input);
             var res = 1L;
             

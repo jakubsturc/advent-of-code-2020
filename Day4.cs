@@ -9,14 +9,14 @@ namespace JakubSturc.AdventOfCode2020
     {
         public static int Part1()
         {
-            var input = Input.Read(day: 4);
+            var input = Input.ReadLines(day: 4);
             var passports = Parser.Process(input);
             return passports.Where(pass => pass.HasRequiredFields()).Count();
         }
 
         public static int Part2()
         {
-            var input = Input.Read(day: 4);
+            var input = Input.ReadLines(day: 4);
             var passports = Parser.Process(input);
             return passports.Where(pass => pass.HasRequiredFields() && pass.IsValid()).Count();
         }

@@ -6,8 +6,8 @@ namespace JakubSturc.AdventOfCode2020
     {
         private static string GetPath(int day, int part) => $".\\Input\\d{day}p{part}.txt";
 
-        public static string[] Read(int day, int part = 1) => File.ReadAllLines(GetPath(day, part));
+        public static string[] ReadLines(int day, int part = 1) => File.ReadAllLines(GetPath(day, part));
         
-        public static StreamReader Open(int day, int part = 1) => File.OpenText(GetPath(day, part));
+        public static string ReadText(int day, int part = 1) => File.ReadAllText(GetPath(day, part));
     }
 }

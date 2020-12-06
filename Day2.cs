@@ -7,9 +7,9 @@ namespace JakubSturc.AdventOfCode2020
 {
     public static class Day2
     {
-        public static int Part1() => Input.Read(day: 2).Where(IsValid1).Count();
+        public static int Part1() => Input.ReadLines(day: 2).Where(IsValid1).Count();
         
-        public static int Part2() => Input.Read(day: 2).Where(IsValid2).Count();
+        public static int Part2() => Input.ReadLines(day: 2).Where(IsValid2).Count();
 
         public static bool IsValid1(string line)
         {
