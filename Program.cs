@@ -18,3 +18,4 @@ System.Console.WriteLine($"Day 8, Part 1: {Day8.Part1()}");
 System.Console.WriteLine($"Day 8, Part 2: {Day8.Part2()}");
 System.Console.WriteLine($"Day 9, Part 1: {Day9.Part1()}");
 System.Console.WriteLine($"Day 9, Part 2: {Day9.Part2()}");
+System.Console.WriteLine($"Day 10, Part 1: {Day10.Part1()}");
