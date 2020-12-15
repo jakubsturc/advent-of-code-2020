@@ -26,3 +26,5 @@ System.Console.WriteLine($"Day 12, Part 1: {Day12.Part1()}");
 System.Console.WriteLine($"Day 12, Part 2: {Day12.Part2()}");
 System.Console.WriteLine($"Day 13, Part 1: {Day13.Part1()}");
 //System.Console.WriteLine($"Day 13, Part 2: {Day13.Part2()}");
+System.Console.WriteLine($"Day 14, Part 1: {Day14.Part1()}");
+//System.Console.WriteLine($"Day 14, Part 2: {Day14.Part2()}");
