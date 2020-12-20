@@ -19,18 +19,26 @@ namespace JakubSturc.AdventOfCode2020
 
         public class Sequence
         {
-            private readonly List<int> _numbers;
+            private readonly Dictionary<int, int> _numbers; // key: number, value: last index
 
-            public int Last { get => _numbers[^1]; }
+            public int Last { get; private set; }
 
-            public Sequence(IEnumerable<int> starting)
+            public int Index { get; private set; }
+
+            public Sequence(int[] starting)
             {
-                _numbers = new List<int>(starting);
+                _numbers = new Dictionary<int, int>();
+                for (int i = 0; i < starting.Length - 1; i++)
+                {
+                    _numbers.Add(starting[i], i + 1);
+                }
+                Last = starting[^1];
+                Index = starting.Length;
             }
 
             public int AddNext(int target)
             {
-                while( _numbers.Count < target)
+                while( Index < target)
                 {
                     AddNext();
                 }
@@ -38,26 +46,25 @@ namespace JakubSturc.AdventOfCode2020
                 return Last;
             }
 
-            public int AddNext()
-            {
-                var next = GetNext();
-                _numbers.Add(next);
-                return next;
+            public int AddNext() => Add(GetNext());
+
+            private int Add(int next)
+            {                
+                _numbers[Last] = Index;
+                Index += 1;
+                return Last = next;
             }
 
             public int GetNext()
             {
-                var len = _numbers.Count;
-                var last = _numbers[len - 1];
-                for (int i = len - 1; i > 0; i--)
+                if (!_numbers.ContainsKey(Last))
                 {
-                    if (_numbers[i - 1] == last)
-                    {
-                        return len - i;
-                    }                    
+                    return 0;
                 }
-
-                return 0;
+                else
+                {
+                    return Index - _numbers[Last];
+                }
             }
         }
 
@@ -66,7 +73,7 @@ namespace JakubSturc.AdventOfCode2020
             [Fact]
             public void Part1_Sample036()
             {
-                var seq = new Sequence(new [] {0, 3, 5 });
+                var seq = new Sequence(new [] {0, 3, 6 });
                 Assert.Equal(0, seq.AddNext());
                 Assert.Equal(3, seq.AddNext());
                 Assert.Equal(3, seq.AddNext());
