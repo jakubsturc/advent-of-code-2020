@@ -1,5 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Xunit;
 
@@ -11,11 +16,8 @@ namespace JakubSturc.AdventOfCode2020
         public static long Part1() => Input.ReadLines(day: 18).Select(Eval1).Sum();
         public static long Part2() => Input.ReadLines(day: 18).Select(Eval2).Sum();
 
-        public static long Eval2(string str)
-        {
-            throw new NotImplementedException(); 
-        }
-
+        private static long Add(long a, long b) => a + b;
+        private static long Mul(long a, long b) => a * b;
 
         public static long Eval1(string str)
         {
@@ -26,7 +28,7 @@ namespace JakubSturc.AdventOfCode2020
             long E()
             {
                 long acc = 0;
-                Func<long, long, long> op = A;
+                Func<long, long, long> op = Add;
 
                 while (idx < len)
                 {
@@ -35,23 +37,72 @@ namespace JakubSturc.AdventOfCode2020
                     switch (c)
                     {
                         case ' ': continue;
-                        case '+': op = A; continue;
-                        case '*': op = M; continue;
+                        case '+': op = Add; continue;
+                        case '*': op = Mul; continue;
                         case '(': acc = op(acc, E()); continue;
                         case ')': return acc;
                         default: acc = op(acc, c - '0'); continue;
-                    }                    
+                    }
                 }
 
-                return acc;                
+                return acc;
             }
-
-            static long A(long a, long b) => a + b;
-            static long M(long a, long b) => a * b;
-
         }
 
+        public static long Eval2(string str) => Expression.Parse(str).Eval();
 
+        public record Expression(ImmutableList<object> Tokens)
+        {
+            public long Eval()
+            {                
+                var reduced = Tokens.Select(item => item switch 
+                {
+                    Expression e => e.Eval(),
+                    object o => o
+                }).ToList();
+
+                int i;
+
+                while ((i = reduced.IndexOf('+')) > 0)
+                {
+                    var a = (long)reduced[i - 1];
+                    var b = (long)reduced[i + 1];
+                    reduced.RemoveRange(i, 2);
+                    reduced[i - 1] = a + b;
+                }
+
+                return reduced.OfType<long>().Aggregate(seed: 1L, Mul);
+            }
+
+            public static Expression Parse(string str)
+            {
+                int len = str.Length;
+                int idx = 0;
+                return Parse();
+
+                Expression Parse()
+                {
+                    var res = new List<object>();
+
+                    while (idx < len)
+                    {
+                        char c = str[idx];
+                        idx += 1;
+                        switch (c)
+                        {
+                            case ' ': continue;
+                            case '+': res.Add('+'); continue;
+                            case '*': res.Add('*'); continue;
+                            case '(': res.Add(Parse()); continue;
+                            case ')': return new Expression(res.ToImmutableList());
+                            default: res.Add((long)(c - '0')); continue;
+                        }
+                    }
+
+                    return new Expression(res.ToImmutableList());
+                }
+            }
+        }
 
         public class Tests
         {
