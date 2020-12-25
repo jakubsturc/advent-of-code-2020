@@ -34,3 +34,5 @@ System.Console.WriteLine($"Day 16, Part 1: {Day16.Part1()}");
 //System.Console.WriteLine($"Day 16, Part 2: {Day16.Part2()}"); // not done, yet
 System.Console.WriteLine($"Day 17, Part 1: {Day17.Part1()}");
 System.Console.WriteLine($"Day 17, Part 2: {Day17.Part2()}");
+System.Console.WriteLine($"Day 18, Part 1: {Day18.Part1()}");
+//System.Console.WriteLine($"Day 18, Part 2: {Day18.Part2()}"); // not done, yet
