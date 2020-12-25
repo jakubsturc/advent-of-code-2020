@@ -32,3 +32,5 @@ System.Console.WriteLine($"Day 15, Part 1: {Day15.Part1()}");
 //System.Console.WriteLine($"Day 15, Part 2: {Day15.Part2()}"); // takes too long
 System.Console.WriteLine($"Day 16, Part 1: {Day16.Part1()}");
 //System.Console.WriteLine($"Day 16, Part 2: {Day16.Part2()}"); // not done, yet
+System.Console.WriteLine($"Day 17, Part 1: {Day17.Part1()}");
+//System.Console.WriteLine($"Day 17, Part 2: {Day17.Part2()}"); // not done, yet
